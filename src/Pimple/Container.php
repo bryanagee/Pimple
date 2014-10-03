@@ -136,13 +136,15 @@ class Container implements \ArrayAccess
      */
     public function offsetUnset($id)
     {
-        if (isset($this->keys[$id])) {
-            if (is_object($this->values[$id])) {
-                unset($this->factories[$this->values[$id]], $this->protected[$this->values[$id]]);
-            }
-
-            unset($this->values[$id], $this->frozen[$id], $this->raw[$id], $this->keys[$id]);
+        if ( ! isset($this->keys[$id])) {
+            return;
         }
+        
+        if (is_object($this->values[$id])) {
+            unset($this->factories[$this->values[$id]], $this->protected[$this->values[$id]]);
+        }
+
+        unset($this->values[$id], $this->frozen[$id], $this->raw[$id], $this->keys[$id]);
     }
 
     /**
